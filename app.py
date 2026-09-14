@@ -17,7 +17,7 @@ def accueil():
         ville_nom = request.form["ville"]
 
         # -------------------------
-        # 📍 API géographique
+        #  API géographique
         # -------------------------
 
         geo_url = "https://geocoding-api.open-meteo.com/v1/search"
@@ -37,7 +37,7 @@ def accueil():
         geo_data = geo_response.json()
 
         if "results" not in geo_data:
-            erreur = "❌ Ville introuvable"
+            erreur = " Ville introuvable"
 
         else:
 
@@ -45,7 +45,7 @@ def accueil():
             longitude = geo_data["results"][0]["longitude"]
 
             # -------------------------
-            # 🌦️ API météo
+            #  API météo
             # -------------------------
 
             weather_url = "https://api.open-meteo.com/v1/forecast"
@@ -66,7 +66,7 @@ def accueil():
             temperature = weather_data["current"]["temperature_2m"]
 
             # -------------------------
-            # 🖼️ API Wikimedia
+            #  API Wikimedia
             # -------------------------
 
             image_api_url = "https://commons.wikimedia.org/w/api.php"
