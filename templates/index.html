@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ma météo 🌦️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #74b9ff,
+                #0984e3,
+                #6c5ce7
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(15px);
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+
+            border-radius: 25px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: white;
+            font-size: 42px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .sous-titre {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+
+            padding: 14px 18px;
+
+            font-size: 17px;
+
+            border: none;
+            border-radius: 12px;
+
+            outline: none;
+        }
+
+        button {
+            padding: 14px 20px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            border: none;
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            background: white;
+            color: #0984e3;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .resultat {
+            background: rgba(255, 255, 255, 0.92);
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            color: #2d3436;
+        }
+
+        .ville {
+            font-size: 30px;
+            margin: 0 0 10px;
+        }
+
+        .temperature {
+            font-size: 32px;
+            font-weight: bold;
+
+            margin: 15px 0;
+        }
+
+        .image-ville {
+            width: 100%;
+            max-height: 300px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+            margin-top: 15px;
+        }
+
+        .erreur {
+            background: rgba(255, 80, 80, 0.9);
+
+            color: white;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+        }
+
+        .footer {
+            color: rgba(255, 255, 255, 0.75);
+
+            font-size: 13px;
+
+            margin-top: 25px;
+        }
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 25px 18px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            form {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <h1>🌦️ Ma météo</h1>
+
+        <p class="sous-titre">
+            Découvre la météo de n'importe quelle ville 🌍
+        </p>
+
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="ville"
+                placeholder="Entre une ville..."
+                required
+            >
+
+            <button type="submit">
+                Rechercher 🔎
+            </button>
+
+        </form>
+
+
+        {% if erreur %}
+
+            <div class="erreur">
+                {{ erreur }}
+            </div>
+
+        {% endif %}
+
+
+        {% if temperature is not none %}
+
+            <div class="resultat">
+
+                <h2 class="ville">
+                    📍 {{ ville }}
+                </h2>
+
+                <p class="temperature">
+                    🌡️ {{ temperature }}°C
+                </p>
+
+                {% if image_url %}
+
+                    <img
+                        class="image-ville"
+                        src="{{ image_url }}"
+                        alt="Image de {{ ville }}"
+                    >
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="footer">
+            🌦️ Données météo : Open-Meteo
+            <br>
+            🖼️ Images : Wikimedia Commons
+        </div>
+
+    </div>
+
+</body>
+
+</html>
